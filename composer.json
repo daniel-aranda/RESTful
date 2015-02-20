@@ -1,0 +1,19 @@
+{
+    "name": "danielaranda/restful",
+    "description": "RESTful API standalone",
+    "require-dev": {
+        "phpunit/phpunit": "~4.5"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Daniel Aranda",
+            "email": "javierdaniel@gmail.com"
+        }
+    ],
+    "minimum-stability": "beta",
+    "require": {},
+    "autoload": {
+        "psr-4": {"RESTful\\": "core/"}
+    }
+}
