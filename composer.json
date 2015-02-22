@@ -14,6 +14,7 @@
     "minimum-stability": "beta",
     "require": {},
     "autoload": {
-        "psr-4": {"RESTful\\": "core/RESTful"}
+        "psr-4": {"RESTful\\": "core/RESTful"},
+        "psr-4": {"RESTful\\Test\\": "tests/RESTful"}
     }
 }
