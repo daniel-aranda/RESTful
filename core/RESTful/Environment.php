@@ -2,6 +2,7 @@
 namespace RESTful;
 
 use RESTful\Exception\Environment\CannotGetHost;
+use RESTful\Util\OptionableArray;
 
 class Environment{
 
@@ -34,7 +35,7 @@ class Environment{
      */
     public static function factory(){
         $instance = new Environment(
-            $_SERVER,
+            new OptionableArray($_SERVER),
             defined('PHPUNIT_RESTful'),
             php_sapi_name()
         );
@@ -42,12 +43,15 @@ class Environment{
         return $instance;
     }
 
+    /**
+     * @var OptionableArray
+     */
     protected $server;
     protected $is_unit_test;
     protected $sapi_name;
 
     public function __construct(
-        array $server,
+        OptionableArray $server,
         $is_unit_test,
         $sapi_name
     ){
@@ -64,11 +68,11 @@ class Environment{
 
     public function protocol(){
 
-        if( empty($_SERVER['HTTPS']) ){
+        if( in_array($this->domain(), [self::UNIT_TEST, self::CLI]) ){
             return 'cmd';
         }
 
-        $is_ssl = $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443;
+        $is_ssl = $this->server->get('HTTPS') === 'on' || $this->server->get('SERVER_PORT') == 443;
         $protocol = $is_ssl ? "https" : "http";
         return $protocol;
     }
@@ -81,11 +85,11 @@ class Environment{
             return self::CLI;
         }
 
-        if( !isset($_SERVER["HTTP_HOST"]) ){
-            throw new CannotGetHost($_SERVER);
+        if( is_null($this->server->get("HTTP_HOST")) ){
+            throw new CannotGetHost($this->server->source());
         }
 
-        return $_SERVER["HTTP_HOST"];
+        return $this->server->get("HTTP_HOST");
     }
 
 }
