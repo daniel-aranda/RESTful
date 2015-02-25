@@ -54,6 +54,21 @@ class EnvironmentTest extends Base
         $this->assertSame('danielarandaochoa.com', $environment->domain());
     }
 
+    public function testNotDomain(){
+
+        $this->setExpectedException('RESTful\Exception\Environment\CannotGetHost');
+
+        $environment = new Environment(
+            new OptionableArray([
+                'HTTP_HOST' => null
+            ]),
+            false,
+            'random'
+        );
+
+        $environment->domain();
+    }
+
      public function testSSL(){
         $environment = new Environment(
             new OptionableArray([
