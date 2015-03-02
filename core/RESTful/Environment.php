@@ -1,6 +1,12 @@
 <?php
 namespace RESTful;
 
+/**
+ * RESTful - Standalone RESTful server library
+ * @author: Daniel Aranda (https://github.com/daniel-aranda/)
+ *
+ */
+
 use RESTful\Exception\Environment\CannotGetHost;
 use RESTful\Util\OptionableArray;
 
@@ -47,7 +53,15 @@ class Environment{
      * @var OptionableArray
      */
     protected $server;
+
+    /**
+     * @var bool
+     */
     protected $is_unit_test;
+
+    /**
+     * @var string
+     */
     protected $sapi_name;
 
     public function __construct(
