@@ -54,4 +54,15 @@ class OptionableArrayTest extends Base
 
     }
 
+    public function testSet(){
+
+        $key = 'property_9';
+        $value = 'testing';
+        $this->assertFalse($this->optionableArray->has($key));
+        $this->optionableArray->set($key, $value);
+        $this->assertTrue($this->optionableArray->has($key));
+        $this->assertSame($value, $this->optionableArray->get($key));
+
+    }
+
 }

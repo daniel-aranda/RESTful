@@ -19,6 +19,12 @@ class OptionableArray
         $this->list = $list;
     }
 
+    public function set($key, $value){
+        $this->list[$key] = $value;
+
+        return $value;
+    }
+
     public function get($key){
         if( !$this->has($key) ){
             return null;
