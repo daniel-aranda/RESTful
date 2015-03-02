@@ -54,6 +54,17 @@ class EnvironmentTest extends Base
         $this->assertSame('danielarandaochoa.com', $environment->domain());
     }
 
+    public function testCliDomain(){
+        $environment = new Environment(
+            new OptionableArray([]),
+            false,
+            'cli'
+        );
+
+        $this->assertSame('cmd', $environment->protocol());
+        $this->assertSame('cli', $environment->domain());
+    }
+
     public function testNotDomain(){
 
         $this->setExpectedException('RESTful\Exception\Environment\CannotGetHost');
@@ -81,6 +92,14 @@ class EnvironmentTest extends Base
 
         $this->assertSame('https', $environment->protocol());
         $this->assertSame('danielarandaochoa.com', $environment->domain());
+    }
+
+    public function testAll(){
+        $this->assertCount(6, Environment::all());
+    }
+
+    public function testFactory(){
+        $this->assertInstanceOf('RESTful\Environment', Environment::factory());
     }
 
 }
