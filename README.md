@@ -1,5 +1,6 @@
 # RESTful Server
 ![Continuos Integration for RESTful project](https://travis-ci.org/daniel-aranda/RESTful.svg?branch=master)
+[![Coverage Status](https://coveralls.io/repos/daniel-aranda/RESTful/badge.svg)](https://coveralls.io/r/daniel-aranda/RESTful)
 
 ## PHP standalone RESTful server.
 
