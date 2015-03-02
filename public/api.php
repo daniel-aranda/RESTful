@@ -10,3 +10,5 @@
 require __DIR__ . '/../core/bootstrap.php';
 
 $item = new \RESTful\Environment($_SERVER, true, 'aa');
+
+echo 'hello world';
