@@ -10,7 +10,7 @@ namespace RESTful;
 use RESTful\Exception\Environment\CannotGetHost;
 use RESTful\Util\OptionableArray;
 
-class Environment{
+final class Environment{
 
     const UNIT_TEST = 'unit_test';
     const CLI = 'cli';
