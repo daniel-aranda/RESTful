@@ -1,14 +1,13 @@
 <?php
 namespace RESTful\Test;
+use RESTful\Environment;
+use RESTful\Util\OptionableArray;
 
 /**
  * RESTful - Standalone RESTful server library
  * @author: Daniel Aranda (https://github.com/daniel-aranda/)
  * 
  */
-
-use RESTful\Environment;
-use RESTful\Util\OptionableArray;
 
 class EnvironmentTest extends Base
 {
