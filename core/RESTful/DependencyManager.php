@@ -15,7 +15,20 @@ final class DependencyManager
     public static function factory($class_name, array $arguments = [])
     {
         $reflector = new \ReflectionClass($class_name);
-        $instance = $reflector->newInstanceArgs($arguments);
+        $instance = null;
+
+        if( $reflector->hasMethod('factory') ){
+            $method = new \ReflectionMethod( $class_name, 'factory' );
+            if ( $method->isStatic() && $method->isPublic() )
+            {
+                $instance = $class_name::factory($arguments);
+            }
+
+        }
+
+        if( is_null($instance) ){
+            $instance = $reflector->newInstanceArgs($arguments);
+        }
 
         return $instance;
     }
