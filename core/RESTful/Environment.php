@@ -10,7 +10,7 @@ namespace RESTful;
 use RESTful\Exception\Environment\CannotGetHost;
 use RESTful\Util\OptionableArray;
 
-class Environment{
+final class Environment{
 
     const UNIT_TEST = 'unit_test';
     const CLI = 'cli';
@@ -27,6 +27,10 @@ class Environment{
         self::STAGE,
         self::PRODUCTION
     ];
+
+    public static function path($path){
+        return RESTful_PATH . $path;
+    }
 
     public static function all(){
         return static::$list;
@@ -82,7 +86,7 @@ class Environment{
 
     public function protocol(){
 
-        if( in_array($this->domain(), [self::UNIT_TEST, self::CLI]) ){
+        if( $this->isCommandLine() ){
             return 'cmd';
         }
 
@@ -91,19 +95,33 @@ class Environment{
         return $protocol;
     }
 
+    public function isCommandLine(){
+        return $this->sapi_name == 'cli' || $this->is_unit_test;
+    }
+
     public function domain(){
         if( $this->is_unit_test ){
             return self::UNIT_TEST;
         }
         if( $this->sapi_name == 'cli' ){
+            $hostname = $this->server->get('HOSTNAME');
+            if( !empty($hostname) ){
+                return $this->server->get('HOSTNAME');
+            }
             return self::CLI;
         }
 
-        if( is_null($this->server->get("HTTP_HOST")) ){
+        $server_name = $this->server->get("SERVER_NAME");
+
+        if( is_null($server_name) ){
+            $server_name = $this->server->get("HTTP_HOST");
+        }
+
+        if( is_null($server_name) ){
             throw new CannotGetHost($this->server->source());
         }
 
-        return $this->server->get("HTTP_HOST");
+        return $server_name;
     }
 
 }

@@ -8,7 +8,7 @@ namespace RESTful\Exception\Environment;
  *
  */
 
-class CannotGetHost extends \RESTful\Exception\ExceptionBase
+class CannotGetHost extends \RESTful\Exception\Environment
 {
 
     public function __construct(array $server)

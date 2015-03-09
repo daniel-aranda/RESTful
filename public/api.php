@@ -7,8 +7,10 @@
  * is all that you need to have it running. Just double checking something obvious, please remember that composer folder
  * should NOT be in the public folder.
  */
-require __DIR__ . '/../core/bootstrap.php';
+require __DIR__ . '/../bootstrap.php';
 
-$item = new \RESTful\Environment($_SERVER, true, 'aa');
+$item = \RESTful\Environment::factory();
+
+pd($_SERVER);
 
 echo 'hello world';

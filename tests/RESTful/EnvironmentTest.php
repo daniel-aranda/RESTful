@@ -1,14 +1,13 @@
 <?php
 namespace RESTful\Test;
+use RESTful\Environment;
+use RESTful\Util\OptionableArray;
 
 /**
  * RESTful - Standalone RESTful server library
  * @author: Daniel Aranda (https://github.com/daniel-aranda/)
  * 
  */
-
-use RESTful\Environment;
-use RESTful\Util\OptionableArray;
 
 class EnvironmentTest extends Base
 {
@@ -94,12 +93,33 @@ class EnvironmentTest extends Base
         $this->assertSame('danielarandaochoa.com', $environment->domain());
     }
 
+     public function testCLI(){
+        $environment = new Environment(
+            new OptionableArray([
+                'HTTP_HOST' => 'danielarandaochoa.com',
+                'HOSTNAME' => 'lili.com',
+                'HTTPS' => 'on'
+            ]),
+            false,
+            Environment::CLI
+        );
+
+        $this->assertSame('cmd', $environment->protocol());
+        $this->assertSame('lili.com', $environment->domain());
+    }
+
     public function testAll(){
         $this->assertCount(6, Environment::all());
     }
 
     public function testFactory(){
         $this->assertInstanceOf('RESTful\Environment', Environment::factory());
+    }
+
+    public function testPath()
+    {
+        $path = Environment::path('tests' . DIRECTORY_SEPARATOR);
+        $this->assertSame(RESTful_PATH.'tests'.DIRECTORY_SEPARATOR, $path);
     }
 
 }
