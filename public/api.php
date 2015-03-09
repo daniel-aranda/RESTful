@@ -11,4 +11,6 @@ require __DIR__ . '/../bootstrap.php';
 
 $item = \RESTful\Environment::factory();
 
+pd($_SERVER);
+
 echo 'hello world';

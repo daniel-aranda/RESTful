@@ -1,0 +1,17 @@
+{
+    "environments": {
+        "sandbox": [
+            "sandbox.daniel-aranda.com",
+            "localhost"
+        ],
+        "unit_test": [
+            "unit_test"
+        ]
+    },
+    "system":{
+        "test":{
+            "item":"value"
+        }
+    },
+    "some":8
+}
