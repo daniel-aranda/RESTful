@@ -1,5 +1,8 @@
 <?php
 namespace RESTful;
+use RESTful\Exception\Configuration\ValueNotSet;
+use RESTful\Exception\Configuration\InvalidEnvironment;
+use RESTful\Exception\Configuration\EnvironmentNotFound;
 
 /**
  * RESTful - Standalone RESTful server library
@@ -60,16 +63,14 @@ final class Configuration{
 
     private function findEnvironment($domain){
 
-        if( empty($this->data['environments']) ){
-            throw new RESTful_Exception_Config_ValueNotSet('environments');
-        }
+        $environments = $this->get('environments');
 
-        foreach($this->data['environments'] as $environment => $environments){
+        foreach($environments as $environment => $server_names){
 
-            if( in_array($domain, $environments) ){
+            if( in_array($domain, $server_names) ){
 
                 if( !Environment::isValid($environment) ){
-                    throw new RESTful_Exception_Config_InvalidEnvironment($environment);
+                    throw new InvalidEnvironment($environment);
                 }
 
                 return $environment;
@@ -77,7 +78,7 @@ final class Configuration{
 
         }
 
-        throw new RESTful_Exception_Config_EnvironmentNotFound($domain);
+        throw new EnvironmentNotFound($domain);
 
     }
 
@@ -88,7 +89,7 @@ final class Configuration{
 
         foreach($keys as $current_key){
             if( !isset($child[$current_key]) ){
-                throw new RESTful_Exception_Config_ValueNotSet($key);
+                throw new ValueNotSet($key);
             }
             $child = $child[$current_key];
         }
@@ -115,15 +116,19 @@ final class Configuration{
         return true;
     }
 
-    public function get_per_environment($key, $environment = null){
+    public function getPerEnvironment($key, $environment = null){
 
         if( is_null($environment) ){
             $environment = $this->environment();
         }
 
+        if( !Environment::isValid($environment) ){
+            throw new InvalidEnvironment($environment);
+        }
+
         try{
             $value = $this->get($key . '.' . $environment);
-        }catch(RESTful_Exception_Config_ValueNotSet $e){
+        }catch(ValueNotSet $e){
             $value = $this->get($key . '.default');
         }
 

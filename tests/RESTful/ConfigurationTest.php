@@ -67,6 +67,13 @@ class ConfigurationTest extends Base
 
     }
 
+    public function testGetValueNotFound(){
+
+        $this->setExpectedException('RESTful\Exception\Configuration\ValueNotSet');
+        $this->config->get('random');
+
+    }
+
     public function testEnvironmentIsSandbox(){
 
         $path = $this->getFixturesDirectory() . 'configuration_test.json';
@@ -88,73 +95,81 @@ class ConfigurationTest extends Base
 
     }
 
-//    public function testGetValueNotFound(){
-//
-//        $this->setExpectedException('RESTful_Exception_Config_ValueNotSet');
-//        $this->config->get('random');
-//
-//    }
-//
-//    public function testValueNotSet(){
-//
-//        $this->setExpectedException('RESTful_Exception_Config_ValueNotSet');
-//
-//        $data = [];
-//
-//        $this->config = new RESTful_Config($data);
-//
-//        $this->config->findEnvironment('sandbox.random.com');
-//
-//    }
+    public function testValueNoEnvironmentsSet(){
+
+        $this->setExpectedException('RESTful\Exception\Configuration\ValueNotSet');
+
+        $data = [];
+
+        $config = new Configuration($data, Environment::factory());
+
+        $config->environment();
+
+    }
+
+    public function testEnvironmentNotFound(){
+
+        $this->setExpectedException('RESTful\Exception\Configuration\EnvironmentNotFound');
+
+        $path = $this->getFixturesDirectory() . 'configuration_test.json';
+
+        $custom_environment = new Environment(
+            new OptionableArray([
+                'SERVER_NAME' => 'sandbox.random.com'
+            ]),
+            false,
+            null
+        );
+
+        $config = Configuration::factory(
+            $path,
+            $custom_environment
+        );
+
+        $config->environment();
+
+    }
+
+    public function testInvalidEnvironment(){
+
+        $this->setExpectedException('RESTful\Exception\Configuration\InvalidEnvironment');
+
+        $path = $this->getFixturesDirectory() . 'configuration_test.json';
+
+        $custom_environment = new Environment(
+            new OptionableArray([
+                'SERVER_NAME' => 'sandbox.random.com'
+            ]),
+            false,
+            null
+        );
+
+        $config = Configuration::factory(
+            $path,
+            $custom_environment
+        );
+
+        $config->set('environments.random', ['sandbox.random.com']);
+
+        $config->environment();
+
+    }
+
+    public function testGetPerEnvironment(){
+        $this->assertSame(1002, $this->config->getPerEnvironment('specific'));
+        $this->assertSame(1001, $this->config->getPerEnvironment('specific', 'sandbox'));
+        $this->assertSame(1000, $this->config->getPerEnvironment('specific', 'development'));
+    }
+
+    public function testGetPerInvalidEnvironment()
+    {
+        $this->setExpectedException('RESTful\Exception\Configuration\InvalidEnvironment');
+
+        $this->config->getPerEnvironment('specific', 'random');
+    }
 
 }
 /*
-class RESTful_ConfigTest extends RESTful_Test_Abstract{
-
-    public function testFindEnvironment(){
-
-        $this->assertSame($this->config->findEnvironment('sandbox.dealerx.com'), 'sandbox');
-        $this->assertSame($this->config->findEnvironment('localhost'), 'sandbox');
-
-    }
-
-    public function testFindNotFoundEnvironment(){
-
-        $this->setExpectedException('RESTful_Exception_Config_EnvironmentNotFound');
-
-        $data = [
-            "environments" => [
-                "development" => [
-                    "sandbox.dealerx.com",
-                    "localhost"
-                ]
-            ]
-        ];
-
-        $this->config = new RESTful_Config($data);
-
-        $this->config->findEnvironment('sandbox.random.com');
-
-    }
-
-    public function testFindInvalidEnvironment(){
-
-        $this->setExpectedException('RESTful_Exception_Config_InvalidEnvironment');
-
-        $data = [
-            "environments" => [
-                "development_invalid" => [
-                    "sandbox.dealerx.com",
-                    "localhost"
-                ]
-            ]
-        ];
-
-        $this->config = new RESTful_Config($data);
-
-        $this->config->findEnvironment('sandbox.dealerx.com');
-
-    }
 
     public function testGetPerEnvironment(){
 
