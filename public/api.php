@@ -9,8 +9,17 @@
  */
 require __DIR__ . '/../bootstrap.php';
 
-$item = \RESTful\Environment::factory();
+$response = new \RESTful\Response();
 
-pd($_SERVER);
+$response->addHeaderHandler = function(\RESTful\Response $response, $header) use (&$received_header){
+    header($header);
+};
 
-echo 'hello world';
+$response->outputHandler = function(\RESTful\Response $response){
+    echo $response->getResponse();
+};
+
+$response->setResponseType(RESTful\Response::JSON);
+$response->setResponse(['Hello World']);
+
+$response->render();
