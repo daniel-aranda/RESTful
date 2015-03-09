@@ -21,7 +21,7 @@ final class DependencyManager
             $method = new \ReflectionMethod( $class_name, 'factory' );
             if ( $method->isStatic() && $method->isPublic() )
             {
-                $instance = $class_name::factory($arguments);
+                $instance = call_user_func_array([$class_name, 'factory'], $arguments);
             }
 
         }
