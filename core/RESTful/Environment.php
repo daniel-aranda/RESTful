@@ -1,15 +1,13 @@
 <?php
 namespace RESTful;
+use RESTful\Exception\Environment\CannotGetHost;
+use RESTful\Util\OptionableArray;
 
 /**
  * RESTful - Standalone RESTful server library
  * @author: Daniel Aranda (https://github.com/daniel-aranda/)
  *
  */
-
-use RESTful\Exception\Environment\CannotGetHost;
-use RESTful\Util\OptionableArray;
-
 final class Environment{
 
     const UNIT_TEST = 'unit_test';
