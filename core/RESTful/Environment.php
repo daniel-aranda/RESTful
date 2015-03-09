@@ -28,6 +28,10 @@ final class Environment{
         self::PRODUCTION
     ];
 
+    public static function path($path){
+        return RESTful_PATH . $path;
+    }
+
     public static function all(){
         return static::$list;
     }
