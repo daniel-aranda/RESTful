@@ -26,7 +26,6 @@
 
     <logging>
         <log type="junit" target="./tests/logs/phpunit.xml" />
-        <log type="coverage-text" target="php://stdout" showUncoveredFiles="true"/>
     </logging>
 
 </phpunit>
