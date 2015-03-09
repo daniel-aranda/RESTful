@@ -103,11 +103,17 @@ final class Environment{
             return self::CLI;
         }
 
-        if( is_null($this->server->get("HTTP_HOST")) ){
+        $server_name = $this->server->get("SERVER_NAME");
+
+        if( is_null($server_name) ){
+            $server_name = $this->server->get("HTTP_HOST");
+        }
+
+        if( is_null($server_name) ){
             throw new CannotGetHost($this->server->source());
         }
 
-        return $this->server->get("HTTP_HOST");
+        return $server_name;
     }
 
 }
