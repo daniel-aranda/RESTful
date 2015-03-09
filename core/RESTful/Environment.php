@@ -86,7 +86,7 @@ final class Environment{
 
     public function protocol(){
 
-        if( in_array($this->domain(), [self::UNIT_TEST, self::CLI]) ){
+        if( $this->isCommandLine() ){
             return 'cmd';
         }
 
@@ -95,12 +95,17 @@ final class Environment{
         return $protocol;
     }
 
+    public function isCommandLine(){
+        return $this->sapi_name == 'cli' || $this->is_unit_test;
+    }
+
     public function domain(){
         if( $this->is_unit_test ){
             return self::UNIT_TEST;
         }
         if( $this->sapi_name == 'cli' ){
-            if( !empty($this->server->get('HOSTNAME')) ){
+            $hostname = $this->server->get('HOSTNAME');
+            if( !empty($hostname) ){
                 return $this->server->get('HOSTNAME');
             }
             return self::CLI;

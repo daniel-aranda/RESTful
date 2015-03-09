@@ -93,6 +93,21 @@ class EnvironmentTest extends Base
         $this->assertSame('danielarandaochoa.com', $environment->domain());
     }
 
+     public function testCLI(){
+        $environment = new Environment(
+            new OptionableArray([
+                'HTTP_HOST' => 'danielarandaochoa.com',
+                'HOSTNAME' => 'lili.com',
+                'HTTPS' => 'on'
+            ]),
+            false,
+            Environment::CLI
+        );
+
+        $this->assertSame('cmd', $environment->protocol());
+        $this->assertSame('lili.com', $environment->domain());
+    }
+
     public function testAll(){
         $this->assertCount(6, Environment::all());
     }
