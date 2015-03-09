@@ -100,6 +100,9 @@ final class Environment{
             return self::UNIT_TEST;
         }
         if( $this->sapi_name == 'cli' ){
+            if( !empty($this->server->get('HOSTNAME')) ){
+                return $this->server->get('HOSTNAME');
+            }
             return self::CLI;
         }
 
