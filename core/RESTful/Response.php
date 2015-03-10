@@ -10,9 +10,11 @@ use RESTful\Exception\Response\InvalidResponseType;
  */
 final class Response {
 
-    const JSON = 'json';
-    const TEXT = 'text';
-    const HTML = 'html';
+    const JSON = 'application/json';
+    const TEXT = 'text/plain';
+    const HTML = 'text/html';
+
+
 
     public static $types = [
         self::JSON,
@@ -42,17 +44,7 @@ final class Response {
     private function validateOutputHeaders(){
         $header = 'Content-Type: ';
 
-        switch ($this->response_type) {
-            case self::JSON:
-                $header .= 'application/json';
-                break;
-            case self::TEXT:
-                $header .= 'text/plain';
-                break;
-            case self::HTML:
-                $header .= 'text/html';
-                break;
-        }
+        $header .= $this->response_type;
         $this->addHeader($header);
     }
 
