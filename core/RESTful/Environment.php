@@ -27,7 +27,7 @@ final class Environment{
     ];
 
     public static function path($path){
-        return RESTful_PATH . $path;
+        return DANIELARANDA_RESTful_PATH . $path;
     }
 
     public static function all(){

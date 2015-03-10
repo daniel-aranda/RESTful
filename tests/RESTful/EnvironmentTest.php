@@ -119,7 +119,7 @@ class EnvironmentTest extends Base
     public function testPath()
     {
         $path = Environment::path('tests' . DIRECTORY_SEPARATOR);
-        $this->assertSame(RESTful_PATH.'tests'.DIRECTORY_SEPARATOR, $path);
+        $this->assertSame(DANIELARANDA_RESTful_PATH.'tests'.DIRECTORY_SEPARATOR, $path);
     }
 
 }
