@@ -12,6 +12,13 @@ use RESTful\Util\OptionableArray;
 final class Request {
 
     const APPLICATION_JSON = 'application/json';
+    const FORM_DATA = 'multipart/form-data';
+    const FORM_URLENCODED = 'application/x-www-form-urlencoded';
+
+    /**
+     * @var string
+     */
+    private $path;
 
     /**
      * @var OptionableArray
@@ -53,8 +60,9 @@ final class Request {
      */
     private $arguments;
 
-    public static function factory(){
+    public static function factory($path){
         $request = new Request(
+            $path,
             new OptionableArray($_SERVER),
             new OptionableArray($_POST),
             file_get_contents("php://input")
@@ -64,20 +72,23 @@ final class Request {
     }
 
     public function __construct(
+        $path,
         OptionableArray $server,
         OptionableArray $post,
         $php_input
     ){
+        $this->path = $path;
         $this->server = $server;
         $this->post = $post;
         $this->php_input = $php_input;
+
+        $this->invalidate();
     }
 
-    public function invalidate(
-        $path
+    private function invalidate(
     ){
 
-        $path = trim($path, '/');
+        $path = trim($this->path, '/');
 
         $arguments = explode('/', $path);
 
@@ -94,7 +105,7 @@ final class Request {
         }
 
         $request_method = $this->server->get('REQUEST_METHOD');
-        $this->request_url = $path;
+        $this->request_url = $this->path;
         $this->request_method = is_null($request_method) ? 'get' : strtolower($request_method);
         $this->service = $service;
         $this->method = $method;
@@ -111,11 +122,11 @@ final class Request {
 
             $data = @json_decode($raw_data, true);
 
-            if( json_last_error() === JSON_ERROR_NONE ){
+            if( json_last_error() !== JSON_ERROR_NONE ){
                 throw new ParsingJSON($raw_data);
             }
         }else if( $this->server->get('REQUEST_METHOD') === 'POST' ){
-            $data = $this->post;
+            $data = $this->post->source();
         }
 
         return $data;
