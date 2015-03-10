@@ -7,7 +7,7 @@ namespace RESTful\Exception;
  *
  */
 
-class ExceptionBase extends \Exception
+class Base extends \Exception
 {
 
     public $server_status_code = 500;
