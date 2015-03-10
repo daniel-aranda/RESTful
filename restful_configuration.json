@@ -1,1 +1,7 @@
-{"project": "daniel"}
+{
+    "system":{
+        "api":{
+            "url":""
+        }
+    }
+}
