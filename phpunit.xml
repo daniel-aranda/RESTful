@@ -13,7 +13,7 @@
          timeoutForSmallTests="10"
          timeoutForMediumTests="30"
          timeoutForLargeTests="60"
-         bootstrap="./tests/bootstrap.php" >
+         bootstrap="./tests/bootstrap.php">
     <testsuites>
         <testsuite name="RESTful :: Core">
             <directory>./tests/RESTful</directory>

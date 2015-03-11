@@ -31,7 +31,7 @@ final class Configuration{
     ){
 
         if( is_null($path) ){
-            $path = DANIELARANDA_RESTful_PATH . 'restful_configuration.json';
+            $path = 'restful_configuration.json';
         }
 
         if( is_null($environment) ){

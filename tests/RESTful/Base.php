@@ -12,7 +12,7 @@ abstract class Base extends \PHPUnit_Framework_TestCase
 {
 
     protected function getTestsDirectory(){
-        return Environment::path('tests' . DIRECTORY_SEPARATOR);
+        return dirname(__DIR__) . DIRECTORY_SEPARATOR;
     }
 
     protected function getFixturesDirectory(){

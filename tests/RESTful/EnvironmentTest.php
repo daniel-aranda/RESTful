@@ -116,10 +116,4 @@ class EnvironmentTest extends Base
         $this->assertInstanceOf('RESTful\Environment', Environment::factory());
     }
 
-    public function testPath()
-    {
-        $path = Environment::path('tests' . DIRECTORY_SEPARATOR);
-        $this->assertSame(DANIELARANDA_RESTful_PATH.'tests'.DIRECTORY_SEPARATOR, $path);
-    }
-
 }
