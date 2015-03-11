@@ -1,7 +1,7 @@
 <?php
 namespace RESTful\Test;
 use RESTful\Request;
-use RESTful\Util\OptionableArray;
+use PHPRocks\Util\OptionableArray;
 
 
 /**
@@ -25,6 +25,7 @@ class RequestTest extends Base
                 'CONTENT_TYPE' => Request::APPLICATION_JSON
             ]),
             new OptionableArray([]),
+            new OptionableArray([]),
             '{"field1":"value1","field2":"value2"}'
         );
     }
@@ -38,6 +39,16 @@ class RequestTest extends Base
         $this->assertSame('get', $this->request->getRequestMethod());
         $this->assertSame('index', $this->request->getMethod());
         $this->assertSame([23], $this->request->getArguments());
+
+    }
+
+    public function testDumbGetters() {
+        $this->assertSame('/vehicles/23', $this->request->getPath());
+        $this->assertInstanceOf('PHPRocks\Util\OptionableArray', $this->request->getServer());
+        $this->assertInstanceOf('PHPRocks\Util\OptionableArray', $this->request->getPost());
+        $this->assertInstanceOf('PHPRocks\Util\OptionableArray', $this->request->getGet());
+        $this->assertSame('{"field1":"value1","field2":"value2"}', $this->request->getPhpInput());
+        $this->assertSame('/vehicles/23', $this->request->getRequestUrl());
     }
 
     public function testGetData() {
@@ -59,6 +70,7 @@ class RequestTest extends Base
                 'CONTENT_TYPE' => Request::APPLICATION_JSON
             ]),
             new OptionableArray([]),
+            new OptionableArray([]),
             '{"field1":"value1","field2":"value2"'
         );
 
@@ -76,6 +88,7 @@ class RequestTest extends Base
             new OptionableArray([
                 'some_field' => 'some_value'
             ]),
+            new OptionableArray([]),
             ''
         );
 
@@ -95,6 +108,7 @@ class RequestTest extends Base
                 'CONTENT_TYPE' => Request::APPLICATION_JSON
             ]),
             new OptionableArray([]),
+            new OptionableArray([]),
             ''
         );
 
@@ -112,6 +126,7 @@ class RequestTest extends Base
             new OptionableArray([
                 'CONTENT_TYPE' => Request::APPLICATION_JSON
             ]),
+            new OptionableArray([]),
             new OptionableArray([]),
             ''
         );

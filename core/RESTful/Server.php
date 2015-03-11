@@ -3,7 +3,7 @@ namespace RESTful;
 use RESTful\Exception\Server\MethodNotSupported;
 use RESTful\Exception\Server\ServiceNotFound;
 use RESTful\Base\Service;
-use RESTful\Util\String;
+use PHPRocks\Util\String;
 
 /**
  * RESTful - Standalone RESTful server library
@@ -70,10 +70,6 @@ final class Server{
             array_splice( $arguments, 0, 0, array($request->getMethod()) );
         }
         $output = call_user_func_array(array($service, $method), $arguments);
-
-        if( !is_array($output) && !is_object($output) ){
-            $output = [$output];
-        }
 
         $this->response->setResponse($output);
     }

@@ -11,11 +11,17 @@
             "email": "javierdaniel@gmail.com"
         }
     ],
-    "minimum-stability": "beta",
-    "require": {},
+    "minimum-stability": "dev",
+    "require": {
+        "danielaranda/php-rocks" : "*"
+    },
     "autoload": {
         "psr-4": {
-            "RESTful\\": "core/RESTful",
+            "RESTful\\": "core/RESTful"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
             "RESTful\\Service\\": "services",
             "RESTful\\Test\\": "tests/RESTful"
         }

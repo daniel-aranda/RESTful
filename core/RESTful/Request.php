@@ -1,7 +1,7 @@
 <?php
 namespace RESTful;
 use RESTful\Exception\Request\ParsingJSON;
-use RESTful\Util\OptionableArray;
+use PHPRocks\Util\OptionableArray;
 
 /**
  * RESTful - Standalone RESTful server library
@@ -29,6 +29,11 @@ final class Request {
      * @var OptionableArray
      */
     private $post;
+
+    /**
+     * @var OptionableArray
+     */
+    private $get;
 
     /**
      * @var string
@@ -65,6 +70,7 @@ final class Request {
             $path,
             new OptionableArray($_SERVER),
             new OptionableArray($_POST),
+            new OptionableArray($_GET),
             file_get_contents("php://input")
         );
 
@@ -75,11 +81,13 @@ final class Request {
         $path,
         OptionableArray $server,
         OptionableArray $post,
+        OptionableArray $get,
         $php_input
     ){
         $this->path = $path;
         $this->server = $server;
         $this->post = $post;
+        $this->get = $get;
         $this->php_input = $php_input;
 
         $this->invalidate();
@@ -158,6 +166,48 @@ final class Request {
      */
     public function getArguments(){
         return $this->arguments;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPath() {
+        return $this->path;
+    }
+
+    /**
+     * @return OptionableArray
+     */
+    public function getServer() {
+        return $this->server;
+    }
+
+    /**
+     * @return OptionableArray
+     */
+    public function getPost() {
+        return $this->post;
+    }
+
+    /**
+     * @return OptionableArray
+     */
+    public function getGet() {
+        return $this->get;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPhpInput() {
+        return $this->php_input;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRequestUrl() {
+        return $this->request_url;
     }
 
 }

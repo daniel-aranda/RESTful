@@ -19,12 +19,7 @@ $response->outputHandler = function(\RESTful\Response $response){
     echo $response->getResponse();
 };
 
-$request = new \RESTful\Request(
-    '/test_service/add',
-    new \RESTful\Util\OptionableArray([]),
-    new \RESTful\Util\OptionableArray([]),
-    ''
-);
+$request = \RESTful\Request::factory('');
 
 $server = new \RESTful\Server(
     $response

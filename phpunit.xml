@@ -28,4 +28,10 @@
         <log type="junit" target="./tests/logs/phpunit.xml" />
     </logging>
 
+    <filter>
+        <blacklist>
+            <directory>./vendor</directory>
+        </blacklist>
+    </filter>
+
 </phpunit>

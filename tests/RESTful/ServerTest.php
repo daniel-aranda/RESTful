@@ -3,7 +3,7 @@ namespace RESTful\Test;
 use RESTful\Request;
 use RESTful\Response;
 use RESTful\Server;
-use RESTful\Util\OptionableArray;
+use PHPRocks\Util\OptionableArray;
 
 /**
  * RESTful - Standalone RESTful server library
@@ -31,11 +31,12 @@ class ServerTest extends Base
             '/test_service/add',
             new OptionableArray([]),
             new OptionableArray([]),
+            new OptionableArray([]),
             ''
         );
 
         $this->server->execute($request);
-        $this->assertSame(['works'], $this->server->getResponse()->getResponse());
+        $this->assertSame('["works"]', $this->server->getResponse()->getResponse());
     }
 
     public function testExecuteWithRouter(){
@@ -45,11 +46,12 @@ class ServerTest extends Base
                 'CONTENT_TYPE' => Request::APPLICATION_JSON
             ]),
             new OptionableArray([]),
+            new OptionableArray([]),
             '{"field":"value"}'
         );
 
         $this->server->execute($request);
-        $this->assertSame(['working'], $this->server->getResponse()->getResponse());
+        $this->assertSame('["working"]', $this->server->getResponse()->getResponse());
     }
 
     public function testExecuteResponseNumeric(){
@@ -57,11 +59,12 @@ class ServerTest extends Base
             '/test_service/number',
             new OptionableArray([]),
             new OptionableArray([]),
+            new OptionableArray([]),
             ''
         );
 
         $this->server->execute($request);
-        $this->assertSame([5], $this->server->getResponse()->getResponse());
+        $this->assertSame('5', $this->server->getResponse()->getResponse());
     }
 
     public function testNotSupportedRequestMethod(){
@@ -73,6 +76,7 @@ class ServerTest extends Base
             new OptionableArray([
                 'REQUEST_METHOD' => 'PUT'
             ]),
+            new OptionableArray([]),
             new OptionableArray([]),
             ''
         );
@@ -90,6 +94,7 @@ class ServerTest extends Base
             new OptionableArray([
             ]),
             new OptionableArray([]),
+            new OptionableArray([]),
             ''
         );
 
@@ -105,6 +110,7 @@ class ServerTest extends Base
             new OptionableArray([
                 'REQUEST_METHOD' => 'PUT'
             ]),
+            new OptionableArray([]),
             new OptionableArray([]),
             ''
         );
