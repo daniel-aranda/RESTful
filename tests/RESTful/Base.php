@@ -1,6 +1,5 @@
 <?php
 namespace RESTful\Test;
-use RESTful\Environment;
 
 /**
  * RESTful - Standalone RESTful server library
