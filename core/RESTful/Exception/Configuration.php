@@ -8,6 +8,6 @@ namespace RESTful\Exception;
  *
  */
 
-class Configuration extends \RESTful\Exception\ExceptionBase
+class Configuration extends Base
 {
 }

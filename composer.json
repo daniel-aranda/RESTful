@@ -16,6 +16,7 @@
     "autoload": {
         "psr-4": {
             "RESTful\\": "core/RESTful",
+            "RESTful\\Service\\": "services",
             "RESTful\\Test\\": "tests/RESTful"
         }
     }
