@@ -48,6 +48,7 @@ final class Server{
         ]);
 
         $this->routeRequest($request, $service);
+        $this->response->render();
     }
 
     private function routeRequest(

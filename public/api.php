@@ -11,7 +11,7 @@ require __DIR__ . '/../vendor/autoload.php';
 
 $response = new \RESTful\Response();
 
-$response->addHeaderHandler = function(\RESTful\Response $response, $header) use (&$received_header){
+$response->addHeaderHandler = function(\RESTful\Response $response, $header){
     header($header);
 };
 
@@ -19,7 +19,14 @@ $response->outputHandler = function(\RESTful\Response $response){
     echo $response->getResponse();
 };
 
-$response->setResponseType(RESTful\Response::JSON);
-$response->setResponse(['Hello World']);
+$request = new \RESTful\Request(
+    '/test_service/add',
+    new \RESTful\Util\OptionableArray([]),
+    new \RESTful\Util\OptionableArray([]),
+    ''
+);
 
-$response->render();
+$server = new \RESTful\Server(
+    $response
+);
+$server->execute($request);
