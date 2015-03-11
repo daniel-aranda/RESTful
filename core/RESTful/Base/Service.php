@@ -23,6 +23,10 @@ abstract class Service{
     ){
         $this->data = $data;
         $this->response = $response;
+
+        $this->afterConstruct();
     }
+
+    public function afterConstruct(){}
 
 }
