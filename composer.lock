@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/daniel-aranda/PHP-Rocks.git",
-                "reference": "e141ae4dd7be2dfaa41ad50225529fc17df7678a"
+                "reference": "8096732bf636afce6bb7430c155a794bb034eedc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/daniel-aranda/PHP-Rocks/zipball/e141ae4dd7be2dfaa41ad50225529fc17df7678a",
-                "reference": "e141ae4dd7be2dfaa41ad50225529fc17df7678a",
+                "url": "https://api.github.com/repos/daniel-aranda/PHP-Rocks/zipball/8096732bf636afce6bb7430c155a794bb034eedc",
+                "reference": "8096732bf636afce6bb7430c155a794bb034eedc",
                 "shasum": ""
             },
             "require-dev": {
@@ -40,7 +40,7 @@
                 }
             ],
             "description": "PHP Rocks :: Fat Free Framework",
-            "time": "2015-03-11 21:52:33"
+            "time": "2015-03-12 01:40:47"
         }
     ],
     "packages-dev": [
