@@ -11,9 +11,9 @@ namespace RESTful\Exception\Server;
 class MethodNotSupported extends \RESTful\Exception\Server
 {
 
-    public function __construct($request_method)
+    public function __construct($service, $request_method)
     {
-        $message = 'Method not supported: ' . $request_method;
+        $message = 'Method not supported: ' . $service . '->' . $request_method;
         parent::__construct($message);
     }
 

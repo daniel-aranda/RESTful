@@ -69,7 +69,8 @@ class ServerTest extends Base
 
     public function testNotSupportedRequestMethod(){
 
-        $this->setExpectedException('RESTful\Exception\Server\MethodNotSupported');
+        $message = 'Method not supported: test_service->putAdd';
+        $this->setExpectedException('RESTful\Exception\Server\MethodNotSupported', $message);
 
         $request = new Request(
             '/test_service/add',
