@@ -62,7 +62,7 @@ class RequestTest extends Base
     }
 
     public function testExceptionParsingJSON() {
-        $this->setExpectedException('RESTful\Exception\Request\ParsingJSON');
+        $this->setExpectedException('PHPRocks\Exception\Util\JSON');
 
         $request = new Request(
             '/vehicles/23',

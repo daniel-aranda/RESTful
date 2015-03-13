@@ -1,5 +1,6 @@
 <?php
 namespace RESTful;
+use PHPRocks\Util\JSON;
 use RESTful\Exception\Request\ParsingJSON;
 use PHPRocks\Util\OptionableArray;
 
@@ -128,11 +129,8 @@ final class Request {
 
         if( $this->server->get('CONTENT_TYPE') === self::APPLICATION_JSON && !empty($raw_data) ){
 
-            $data = @json_decode($raw_data, true);
+            $data = JSON::decode($raw_data, true);
 
-            if( json_last_error() !== JSON_ERROR_NONE ){
-                throw new ParsingJSON($raw_data);
-            }
         }else if( $this->server->get('REQUEST_METHOD') === 'POST' ){
             $data = $this->post->source();
         }
