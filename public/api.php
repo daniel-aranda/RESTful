@@ -11,15 +11,15 @@ require __DIR__ . '/../vendor/autoload.php';
 
 $response = new \RESTful\Response();
 
-$response->addHeaderHandler = function(\RESTful\Response $response, $header){
+$response->addEventHandler(\RESTful\Response::HEADER_ADDED_EVENT, function(\RESTful\Response $response, $header){
     header($header);
-};
+});
 
-$response->outputHandler = function(\RESTful\Response $response){
+$response->addEventHandler(\RESTful\Response::OUTPUT_EVENT, function(\RESTful\Response $response){
     echo $response->getResponse();
-};
+});
 
-$request = \RESTful\Request::factory('');
+$request = \RESTful\Request::factory('test_service/add');
 
 $server = new \RESTful\Server(
     $response

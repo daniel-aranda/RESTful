@@ -23,9 +23,9 @@ class ResponseTest extends Base
     public function testRenderResponse() {
 
         $output = null;
-        $this->response->outputHandler = function(Response $response) use (&$output){
+        $this->response->addEventHandler(Response::OUTPUT_EVENT, function(Response $response) use (&$output){
             $output = $response->getResponse();
-        };
+        });
 
         $this->response->setResponse('Hello World');
 
@@ -38,9 +38,9 @@ class ResponseTest extends Base
     public function testMultiRenderResponse() {
 
         $output = '';
-        $this->response->outputHandler = function(Response $response) use (&$output){
+        $this->response->addEventHandler(Response::OUTPUT_EVENT, function(Response $response) use (&$output){
             $output .= $response->getResponse();
-        };
+        });
 
         $this->response->setResponseType(Response::TEXT);
 
@@ -59,9 +59,9 @@ class ResponseTest extends Base
     public function testReceiveHeaders() {
 
         $received_header = null;
-        $this->response->addHeaderHandler = function(Response $response, $header) use (&$received_header){
+        $this->response->addEventHandler(Response::HEADER_ADDED_EVENT, function(Response $response, $header) use (&$received_header){
             $received_header = $header;
-        };
+        });
 
         $this->response->render();
 
@@ -74,9 +74,9 @@ class ResponseTest extends Base
     public function testHtmlHeaders() {
 
         $received_header = null;
-        $this->response->addHeaderHandler = function(Response $response, $header) use (&$received_header){
+        $this->response->addEventHandler(Response::HEADER_ADDED_EVENT, function(Response $response, $header) use (&$received_header){
             $received_header = $header;
-        };
+        });
 
         $this->response->setResponseType(Response::HTML);
         $this->response->render();
@@ -89,9 +89,9 @@ class ResponseTest extends Base
     public function testTextHeaders() {
 
         $received_header = null;
-        $this->response->addHeaderHandler = function(Response $response, $header) use (&$received_header){
+        $this->response->addEventHandler(Response::HEADER_ADDED_EVENT, function(Response $response, $header) use (&$received_header){
             $received_header = $header;
-        };
+        });
 
         $this->response->setResponseType(Response::TEXT);
         $this->response->render();
@@ -105,9 +105,9 @@ class ResponseTest extends Base
 
 
         $received_header = null;
-        $this->response->addHeaderHandler = function(Response $response, $header) use (&$received_header){
+        $this->response->addEventHandler(Response::HEADER_ADDED_EVENT, function(Response $response, $header) use (&$received_header){
             $received_header = $header;
-        };
+        });
 
         $this->response->setResponseType(Response::HTML);
 
@@ -125,9 +125,9 @@ class ResponseTest extends Base
         $this->setExpectedException('RESTful\Exception\Response\CanNotSwapResponseType');
 
         $received_header = null;
-        $this->response->addHeaderHandler = function(Response $response, $header) use (&$received_header){
+        $this->response->addEventHandler(Response::HEADER_ADDED_EVENT, function(Response $response, $header) use (&$received_header){
             $received_header = $header;
-        };
+        });
 
         $this->response->setResponseType(Response::HTML);
         $this->response->render();

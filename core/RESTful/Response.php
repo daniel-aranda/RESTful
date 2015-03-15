@@ -1,5 +1,6 @@
 <?php
 namespace RESTful;
+use PHPRocks\EventHandler;
 use RESTful\Exception\Response\CanNotSwapResponseType;
 use RESTful\Exception\Response\InvalidResponseType;
 
@@ -10,11 +11,11 @@ use RESTful\Exception\Response\InvalidResponseType;
  */
 final class Response {
 
+    use EventHandler;
+
     const JSON = 'application/json';
     const TEXT = 'text/plain';
     const HTML = 'text/html';
-
-
 
     public static $types = [
         self::JSON,
@@ -28,9 +29,9 @@ final class Response {
 
     private $response = null;
 
-    public $outputHandler = null;
+    const OUTPUT_EVENT = 'output_event';
 
-    public $addHeaderHandler = null;
+    const HEADER_ADDED_EVENT = 'added_event';
 
     private function validateHeaders(){
         if( $this->header_set ) {
@@ -49,9 +50,7 @@ final class Response {
     }
 
     public function addHeader($header){
-        if( is_callable($this->addHeaderHandler) ){
-            $this->addHeaderHandler->__invoke($this, $header);
-        }
+        $this->trigger(self::HEADER_ADDED_EVENT, [$this, $header]);
     }
 
     public function setResponse($response){
@@ -69,9 +68,7 @@ final class Response {
             $this->response = json_encode($this->response);
         }
 
-        if( is_callable($this->outputHandler) ){
-            $this->outputHandler->__invoke($this);
-        }
+        $this->trigger(self::OUTPUT_EVENT, [$this]);
 
     }
 
