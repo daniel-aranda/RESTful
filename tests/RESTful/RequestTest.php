@@ -138,4 +138,44 @@ class RequestTest extends Base
 
     }
 
+    public function testGetRemoteIP() {
+
+        $server = [
+            'REMOTE_ADDR' => '200.95.65.30'
+        ];
+
+        $this->assertSame('200.95.65.30', Request::getRemoteIP($server));
+
+        $server = [
+            'HTTP_CLIENT_IP' => '200.95.65.28',
+            'REMOTE_ADDR' => '200.95.65.30'
+        ];
+
+        $this->assertSame('200.95.65.28', Request::getRemoteIP($server));
+
+        $server = [
+            'HTTP_CLIENT_IP' => '200.95.65.28',
+            'HTTP_X_FORWARDED_FOR' => '200.95.65.27',
+            'REMOTE_ADDR' => '200.95.65.30'
+        ];
+
+        $this->assertSame('200.95.65.28', Request::getRemoteIP($server));
+
+        $server = [
+            'HTTP_X_FORWARDED_FOR' => '200.95.65.27',
+            'REMOTE_ADDR' => '200.95.65.30'
+        ];
+
+        $this->assertSame('200.95.65.27', Request::getRemoteIP($server));
+
+    }
+
+    public function testRemoteIPNotFound() {
+
+        $this->setExpectedException('RESTful\Exception\Request');
+
+        $this->assertSame(null, Request::getRemoteIP());
+
+    }
+
 }

@@ -1,6 +1,7 @@
 <?php
 namespace RESTful;
 use PHPRocks\Util\JSON;
+use RESTful\Exception\Request\CanNotLocateRemoteIP;
 use RESTful\Exception\Request\ParsingJSON;
 use PHPRocks\Util\OptionableArray;
 
@@ -76,6 +77,30 @@ final class Request {
         );
 
         return $request;
+    }
+
+    public static function getRemoteIP(array $server = null) {
+
+        if( is_null($server) ){
+            $server = $_SERVER;
+        }
+
+        $server = new OptionableArray($server);
+
+        if( $server->get('HTTP_CLIENT_IP') ){
+            $ip = $server->get('HTTP_CLIENT_IP');
+        } elseif ( $server->get('HTTP_X_FORWARDED_FOR') ){
+            $ip = $server->get('HTTP_X_FORWARDED_FOR');
+        } else {
+            $ip = $server->get('REMOTE_ADDR');
+        }
+
+        if( is_null($ip) ){
+            throw new CanNotLocateRemoteIP();
+        }
+
+        return $ip;
+
     }
 
     public function __construct(
