@@ -1,8 +1,7 @@
-install: composer install --prefer-source --dev
+install: composer install
 
 language: php
 php:
-  - 5.4
   - 5.5
 
 script: ./vendor/bin/phpunit --coverage-text
