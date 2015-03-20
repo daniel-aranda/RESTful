@@ -39,6 +39,19 @@ class ServerTest extends Base
         $this->assertSame('["works"]', $this->server->getResponse()->getResponse());
     }
 
+    public function testExecuteChildView(){
+        $request = new Request(
+            '/test_service/55/comments',
+            new OptionableArray([]),
+            new OptionableArray([]),
+            new OptionableArray([]),
+            ''
+        );
+
+        $this->server->execute($request);
+        $this->assertSame('["working","comments"]', $this->server->getResponse()->getResponse());
+    }
+
     public function testExecuteWithRouter(){
         $request = new Request(
             '/test_service_router/update',
