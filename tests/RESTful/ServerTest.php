@@ -39,6 +39,54 @@ class ServerTest extends Base
         $this->assertSame('["works"]', $this->server->getResponse()->getResponse());
     }
 
+    public function testExecuteChildView(){
+        $request = new Request(
+            '/test_service/55/comments',
+            new OptionableArray([]),
+            new OptionableArray([]),
+            new OptionableArray([]),
+            ''
+        );
+
+        $this->server->execute($request);
+        $this->assertSame('["working","comments"]', $this->server->getResponse()->getResponse());
+    }
+
+    public function testExecuteGroupView(){
+        $request = new Request(
+            '/admin/test_users/add',
+            new OptionableArray([]),
+            new OptionableArray([]),
+            new OptionableArray([]),
+            '',
+            ['admin']
+        );
+
+        $this->server->execute($request);
+        $this->assertSame('["users works"]', $this->server->getResponse()->getResponse());
+    }
+
+    public function testExecuteNotAllowed(){
+        $request = new Request(
+            '/admin/test_users/update',
+            new OptionableArray([]),
+            new OptionableArray([]),
+            new OptionableArray([]),
+            '',
+            ['admin']
+        );
+
+        $this->server->addEventHandler(Server::BEFORE_EXECUTE_SERVICE, function(Request $request){
+            $request->setAllowed(false);
+        });
+        $this->server->addEventHandler(Server::NOT_ALLOWED, function(Request $request){
+            $this->assertFalse($request->isAllowed());
+        });
+
+        $this->server->execute($request);
+
+    }
+
     public function testExecuteWithRouter(){
         $request = new Request(
             '/test_service_router/update',

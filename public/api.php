@@ -24,4 +24,9 @@ $request = \RESTful\Request::factory('test_service/add');
 $server = new \RESTful\Server(
     $response
 );
+
+$server->addEventHandler(RESTful\Server::BEFORE_EXECUTE_SERVICE, function(\RESTful\Request $request){
+    $request->setAllowed( $request->getGroup() != 'admin' );
+});
+
 $server->execute($request);

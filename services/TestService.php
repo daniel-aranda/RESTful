@@ -14,6 +14,10 @@ class TestService extends Service{
         return ['works'];
     }
 
+    public function getIndex($id, $comments = null){
+        return ['working', $comments];
+    }
+
     public function getNumber(){
         return 5;
     }
