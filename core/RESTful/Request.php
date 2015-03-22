@@ -77,6 +77,11 @@ final class Request {
      */
     private $groups;
 
+    /**
+     * @var boolean
+     */
+    private $allowed = true;
+
     public static function factory($path){
         $request = new Request(
             $path,
@@ -265,6 +270,22 @@ final class Request {
     public function getGroups()
     {
         return $this->groups;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isAllowed()
+    {
+        return $this->allowed;
+    }
+
+    /**
+     * @param boolean $allowed
+     */
+    public function setAllowed($allowed)
+    {
+        $this->allowed = $allowed;
     }
 
 }

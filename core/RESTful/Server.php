@@ -21,6 +21,7 @@ final class Server{
     const BEFORE_EXECUTE_SERVICE = 'before_execute_service';
     const AFTER_EXECUTE_SERVICE = 'after_execute_service';
     const REQUEST_COMPLETE = 'request_complete';
+    const NOT_ALLOWED = 'request_not_allowed';
 
     private $service_prefix;
 
@@ -45,6 +46,11 @@ final class Server{
     public function execute(Request $request){
 
         $this->trigger(self::BEFORE_EXECUTE_SERVICE, [$request, $this->response]);
+
+        if( !$request->isAllowed() ){
+            $this->trigger(self::NOT_ALLOWED, [$request, $this->response]);
+            return null;
+        }
 
         $class_name = String::underscoreToCamelCase( $request->getService() );
         $group_name = $request->getGroup() ? String::underscoreToCamelCase( $request->getGroup() ). '\\' : '';

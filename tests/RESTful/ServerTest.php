@@ -66,6 +66,27 @@ class ServerTest extends Base
         $this->assertSame('["users works"]', $this->server->getResponse()->getResponse());
     }
 
+    public function testExecuteNotAllowed(){
+        $request = new Request(
+            '/admin/test_users/update',
+            new OptionableArray([]),
+            new OptionableArray([]),
+            new OptionableArray([]),
+            '',
+            ['admin']
+        );
+
+        $this->server->addEventHandler(Server::BEFORE_EXECUTE_SERVICE, function(Request $request){
+            $request->setAllowed(false);
+        });
+        $this->server->addEventHandler(Server::NOT_ALLOWED, function(Request $request){
+            $this->assertFalse($request->isAllowed());
+        });
+
+        $this->server->execute($request);
+
+    }
+
     public function testExecuteWithRouter(){
         $request = new Request(
             '/test_service_router/update',
