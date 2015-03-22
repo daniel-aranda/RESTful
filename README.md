@@ -12,7 +12,7 @@ This project is not intended to be another Laravel or Symfony, it is a standalon
     * This Framework can reach speeds of 30ms because it focus on RESTful nothing else, every other additional is optional, in several cases you have a cached response and just want a super quick response.
 
 ###Requirements
-* PHP 5.4 or greater
+* PHP 5.5 or greater
 * PHP project with [Composer](https://getcomposer.org/doc/00-intro.md)
 
 ###Installation
