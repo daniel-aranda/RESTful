@@ -1,5 +1,6 @@
 <?php
 namespace RESTful;
+use PHPRocks\EventHandler;
 use RESTful\Exception\Server\MethodNotSupported;
 use RESTful\Exception\Server\ServiceNotFound;
 use RESTful\Base\Service;
@@ -13,7 +14,13 @@ use PHPRocks\Util\String;
 
 final class Server{
 
+    use EventHandler;
+
     const VERSION = '0.2.0';
+
+    const BEFORE_EXECUTE_SERVICE = 'before_execute_service';
+    const AFTER_EXECUTE_SERVICE = 'after_execute_service';
+    const REQUEST_COMPLETE = 'request_complete';
 
     private $service_prefix;
 
@@ -37,9 +44,12 @@ final class Server{
 
     public function execute(Request $request){
 
+        $this->trigger(self::BEFORE_EXECUTE_SERVICE, [$request]);
+
         $class_name = String::underscoreToCamelCase( $request->getService() );
-        $service_class = $this->getServicePrefix() . $class_name;
-        $this->validate_class( $service_class );
+        $group_name = $request->getGroup() ? String::underscoreToCamelCase( $request->getGroup() ). '\\' : '';
+        $service_class = $this->getServicePrefix() . $group_name . $class_name;
+        $this->validateClass( $service_class );
 
         $reflector = new \ReflectionClass($service_class);
         $service = $reflector->newInstanceArgs([
@@ -47,8 +57,12 @@ final class Server{
             $this->response
         ]);
 
+        $this->trigger(self::AFTER_EXECUTE_SERVICE, [$request]);
+
         $this->routeRequest($request, $service);
         $this->response->render();
+
+        $this->trigger(self::REQUEST_COMPLETE, [$request]);
     }
 
     private function routeRequest(
@@ -81,7 +95,7 @@ final class Server{
      * insecure as classes are loaded using the request url
      *
      */
-    public function validate_class($service_class) {
+    public function validateClass($service_class) {
         if( !@class_exists( $service_class ) ){
             throw new ServiceNotFound($service_class);
         }

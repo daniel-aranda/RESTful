@@ -52,6 +52,20 @@ class ServerTest extends Base
         $this->assertSame('["working","comments"]', $this->server->getResponse()->getResponse());
     }
 
+    public function testExecuteGroupView(){
+        $request = new Request(
+            '/admin/test_users/add',
+            new OptionableArray([]),
+            new OptionableArray([]),
+            new OptionableArray([]),
+            '',
+            ['admin']
+        );
+
+        $this->server->execute($request);
+        $this->assertSame('["users works"]', $this->server->getResponse()->getResponse());
+    }
+
     public function testExecuteWithRouter(){
         $request = new Request(
             '/test_service_router/update',
