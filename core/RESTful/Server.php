@@ -16,7 +16,7 @@ final class Server{
 
     use EventHandler;
 
-    const VERSION = '0.2.0';
+    const VERSION = '0.3.2';
 
     const BEFORE_EXECUTE_SERVICE = 'before_execute_service';
     const AFTER_EXECUTE_SERVICE = 'after_execute_service';
