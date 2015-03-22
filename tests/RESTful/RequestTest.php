@@ -39,7 +39,8 @@ class RequestTest extends Base
         $this->assertSame('get', $this->request->getRequestMethod());
         $this->assertSame('index', $this->request->getMethod());
         $this->assertSame([23], $this->request->getArguments());
-
+        $this->assertSame(null, $this->request->getGroup());
+        $this->assertSame(null, $this->request->getGroups());
     }
 
     public function testDumbGetters() {
@@ -59,6 +60,22 @@ class RequestTest extends Base
             'field2' => 'value2'
         ];
         $this->assertSame($expected, $data);
+    }
+
+    public function testRequestWithGroup() {
+
+        $request = new Request(
+            '/admin/vehicles/23',
+            new OptionableArray([
+                'CONTENT_TYPE' => Request::APPLICATION_JSON
+            ]),
+            new OptionableArray([]),
+            new OptionableArray([]),
+            '{"field1":"value1","field2":"value2"',
+            ['admin', 'manager']
+        );
+
+        $this->assertSame('admin', $request->getGroup());
     }
 
     public function testExceptionParsingJSON() {

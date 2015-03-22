@@ -60,12 +60,22 @@ final class Request {
     /**
      * @var string
      */
+    private $group;
+
+    /**
+     * @var string
+     */
     private $method;
 
     /**
      * @var array
      */
     private $arguments;
+
+    /**
+     * @var array
+     */
+    private $groups;
 
     public static function factory($path){
         $request = new Request(
@@ -108,13 +118,15 @@ final class Request {
         OptionableArray $server,
         OptionableArray $post,
         OptionableArray $get,
-        $php_input
+        $php_input,
+        array $groups = null
     ){
         $this->path = $path;
         $this->server = $server;
         $this->post = $post;
         $this->get = $get;
         $this->php_input = $php_input;
+        $this->groups = $groups;
 
         $this->invalidate();
     }
@@ -125,6 +137,11 @@ final class Request {
         $path = trim($this->path, '/');
 
         $arguments = explode('/', $path);
+        $group = null;
+
+        if( count($this->groups) > 0 && in_array($arguments[0], $this->groups) ){
+            $group = array_shift($arguments);
+        }
 
         $service = array_shift($arguments);
 
@@ -142,6 +159,7 @@ final class Request {
         $this->request_url = $this->path;
         $this->request_method = is_null($request_method) ? 'get' : strtolower($request_method);
         $this->service = $service;
+        $this->group = $group;
         $this->method = $method;
         $this->arguments = $arguments;
 
@@ -231,6 +249,22 @@ final class Request {
      */
     public function getRequestUrl() {
         return $this->request_url;
+    }
+
+    /**
+     * @return string
+     */
+    public function getGroup()
+    {
+        return $this->group;
+    }
+
+    /**
+     * @return array
+     */
+    public function getGroups()
+    {
+        return $this->groups;
     }
 
 }
