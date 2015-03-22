@@ -44,7 +44,7 @@ final class Server{
 
     public function execute(Request $request){
 
-        $this->trigger(self::BEFORE_EXECUTE_SERVICE, [$request]);
+        $this->trigger(self::BEFORE_EXECUTE_SERVICE, [$request, $this->response]);
 
         $class_name = String::underscoreToCamelCase( $request->getService() );
         $group_name = $request->getGroup() ? String::underscoreToCamelCase( $request->getGroup() ). '\\' : '';
@@ -57,12 +57,12 @@ final class Server{
             $this->response
         ]);
 
-        $this->trigger(self::AFTER_EXECUTE_SERVICE, [$request]);
+        $this->trigger(self::AFTER_EXECUTE_SERVICE, [$request, $this->response]);
 
         $this->routeRequest($request, $service);
         $this->response->render();
 
-        $this->trigger(self::REQUEST_COMPLETE, [$request]);
+        $this->trigger(self::REQUEST_COMPLETE, [$request, $this->response]);
     }
 
     private function routeRequest(
