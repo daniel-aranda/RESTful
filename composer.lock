@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/daniel-aranda/PHP-Rocks.git",
-                "reference": "644fd8a11c63260d13f0076d12eebb77dcdd5724"
+                "reference": "1e4f133c9677c5d18f7bbe258947182e50aff437"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/daniel-aranda/PHP-Rocks/zipball/644fd8a11c63260d13f0076d12eebb77dcdd5724",
-                "reference": "644fd8a11c63260d13f0076d12eebb77dcdd5724",
+                "url": "https://api.github.com/repos/daniel-aranda/PHP-Rocks/zipball/1e4f133c9677c5d18f7bbe258947182e50aff437",
+                "reference": "1e4f133c9677c5d18f7bbe258947182e50aff437",
                 "shasum": ""
             },
             "require-dev": {
@@ -40,7 +40,7 @@
                 }
             ],
             "description": "PHP Rocks :: Fat Free Framework",
-            "time": "2015-03-17 03:07:50"
+            "time": "2015-03-24 19:29:05"
         }
     ],
     "packages-dev": [
@@ -154,12 +154,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/prophecy.git",
-                "reference": "26530c5a425c6f67c9fe4fa10a3773adc96c418d"
+                "reference": "07606749da971eda75434814a313ed0ce6790f6a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/26530c5a425c6f67c9fe4fa10a3773adc96c418d",
-                "reference": "26530c5a425c6f67c9fe4fa10a3773adc96c418d",
+                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/07606749da971eda75434814a313ed0ce6790f6a",
+                "reference": "07606749da971eda75434814a313ed0ce6790f6a",
                 "shasum": ""
             },
             "require": {
@@ -206,7 +206,7 @@
                 "spy",
                 "stub"
             ],
-            "time": "2015-03-13 14:15:05"
+            "time": "2015-03-20 17:41:29"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -960,12 +960,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml.git",
-                "reference": "f6985a14085827f92173b72a7b224dcc448ef3f5"
+                "reference": "57c55781ae850a88d8f52f43bc8e709e57610e27"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/f6985a14085827f92173b72a7b224dcc448ef3f5",
-                "reference": "f6985a14085827f92173b72a7b224dcc448ef3f5",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/57c55781ae850a88d8f52f43bc8e709e57610e27",
+                "reference": "57c55781ae850a88d8f52f43bc8e709e57610e27",
                 "shasum": ""
             },
             "require": {
@@ -1001,7 +1001,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
-            "time": "2015-03-13 10:36:02"
+            "time": "2015-03-24 17:09:17"
         }
     ],
     "aliases": [],
