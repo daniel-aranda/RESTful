@@ -11,7 +11,7 @@
             "email": "javierdaniel@gmail.com"
         }
     ],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "require": {
         "danielaranda/php-rocks" : "*"
     },
