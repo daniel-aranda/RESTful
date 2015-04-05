@@ -61,11 +61,21 @@ final class Response {
         return $this->response;
     }
 
+    public function echoResponse($value)
+    {
+        $this->setResponse($value);
+        $this->render();
+    }
+
     public function render(){
         $this->validateHeaders();
 
         if( $this->isJSON() ){
             $this->response = json_encode($this->response);
+        }
+
+        if( $this->isText() && !is_string($this->response) ){
+            $this->response = var_export($this->response, true);
         }
 
         $this->trigger(self::OUTPUT_EVENT, [$this]);

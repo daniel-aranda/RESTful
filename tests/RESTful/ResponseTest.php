@@ -147,4 +147,19 @@ class ResponseTest extends Base
 
     }
 
+    public function testEchoResponse()
+    {
+
+        $output = null;
+        $this->response->addEventHandler(Response::OUTPUT_EVENT, function(Response $response) use (&$output){
+            $output = $response->getResponse();
+        });
+
+        $this->response->setResponseType(Response::TEXT);
+        $this->response->echoResponse('Hello World');
+
+        $this->assertSame('Hello World', $output);
+
+    }
+
 }
