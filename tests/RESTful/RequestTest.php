@@ -22,7 +22,7 @@ class RequestTest extends Base
         $this->request = new Request(
             '/vehicles/23',
             new OptionableArray([
-                'CONTENT_TYPE' => Request::APPLICATION_JSON
+                'HTTP_CONTENT_TYPE' => Request::APPLICATION_JSON
             ]),
             new OptionableArray([]),
             new OptionableArray([]),
@@ -67,7 +67,7 @@ class RequestTest extends Base
         $request = new Request(
             '/admin/vehicles/23',
             new OptionableArray([
-                'CONTENT_TYPE' => Request::APPLICATION_JSON
+                'HTTP_CONTENT_TYPE' => Request::APPLICATION_JSON
             ]),
             new OptionableArray([]),
             new OptionableArray([]),
@@ -84,7 +84,7 @@ class RequestTest extends Base
         $request = new Request(
             '/vehicles/23',
             new OptionableArray([
-                'CONTENT_TYPE' => Request::APPLICATION_JSON
+                'HTTP_CONTENT_TYPE' => Request::APPLICATION_JSON
             ]),
             new OptionableArray([]),
             new OptionableArray([]),
@@ -99,7 +99,7 @@ class RequestTest extends Base
         $request = new Request(
             '/vehicles/23',
             new OptionableArray([
-                'CONTENT_TYPE' => Request::FORM_URLENCODED,
+                'HTTP_CONTENT_TYPE' => Request::FORM_URLENCODED,
                 'REQUEST_METHOD' => 'POST'
             ]),
             new OptionableArray([
@@ -122,7 +122,7 @@ class RequestTest extends Base
         $request = new Request(
             '/vehicles/model',
             new OptionableArray([
-                'CONTENT_TYPE' => Request::APPLICATION_JSON
+                'HTTP_CONTENT_TYPE' => Request::APPLICATION_JSON
             ]),
             new OptionableArray([]),
             new OptionableArray([]),
@@ -141,7 +141,7 @@ class RequestTest extends Base
         $request = new Request(
             '/vehicles/model/11/22/33',
             new OptionableArray([
-                'CONTENT_TYPE' => Request::APPLICATION_JSON
+                'HTTP_CONTENT_TYPE' => Request::APPLICATION_JSON
             ]),
             new OptionableArray([]),
             new OptionableArray([]),

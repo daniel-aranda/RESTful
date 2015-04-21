@@ -179,7 +179,7 @@ final class Request {
 
         $data = [];
 
-        if( $this->server->get('CONTENT_TYPE') === self::APPLICATION_JSON && !empty($raw_data) ){
+        if( $this->server->get('HTTP_CONTENT_TYPE') === self::APPLICATION_JSON && !empty($raw_data) ){
 
             $data = JSON::decode($raw_data, true);
 
