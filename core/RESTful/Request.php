@@ -82,13 +82,17 @@ final class Request {
      */
     private $allowed = true;
 
-    public static function factory($path){
+    public static function factory(
+        $path,
+        array $groups = null
+    ){
         $request = new Request(
             $path,
             new OptionableArray($_SERVER),
             new OptionableArray($_POST),
             new OptionableArray($_GET),
-            file_get_contents("php://input")
+            file_get_contents("php://input"),
+            $groups
         );
 
         return $request;
