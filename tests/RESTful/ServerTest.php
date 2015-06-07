@@ -91,7 +91,7 @@ class ServerTest extends Base
         $request = new Request(
             '/test_service_router/update',
             new OptionableArray([
-                'CONTENT_TYPE' => Request::APPLICATION_JSON
+                'HTTP_CONTENT_TYPE' => Request::APPLICATION_JSON
             ]),
             new OptionableArray([]),
             new OptionableArray([]),

@@ -82,13 +82,17 @@ final class Request {
      */
     private $allowed = true;
 
-    public static function factory($path){
+    public static function factory(
+        $path,
+        array $groups = null
+    ){
         $request = new Request(
             $path,
             new OptionableArray($_SERVER),
             new OptionableArray($_POST),
             new OptionableArray($_GET),
-            file_get_contents("php://input")
+            file_get_contents("php://input"),
+            $groups
         );
 
         return $request;
@@ -175,7 +179,7 @@ final class Request {
 
         $data = [];
 
-        if( $this->server->get('CONTENT_TYPE') === self::APPLICATION_JSON && !empty($raw_data) ){
+        if( $this->server->get('HTTP_CONTENT_TYPE') === self::APPLICATION_JSON && !empty($raw_data) ){
 
             $data = JSON::decode($raw_data, true);
 
