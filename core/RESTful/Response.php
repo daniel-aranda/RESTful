@@ -14,6 +14,7 @@ final class Response {
     use EventHandler;
 
     const JSON = 'application/json';
+    const JAVASCRIPT = 'text/javascript';
     const TEXT = 'text/plain';
     const HTML = 'text/html';
 
