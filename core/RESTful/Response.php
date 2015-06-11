@@ -15,13 +15,16 @@ final class Response {
 
     const JSON = 'application/json';
     const JAVASCRIPT = 'text/javascript';
+    const IMAGE_PNG = 'image/png';
     const TEXT = 'text/plain';
     const HTML = 'text/html';
 
     public static $types = [
         self::JSON,
         self::HTML,
-        self::TEXT
+        self::TEXT,
+        self::JAVASCRIPT,
+        self::IMAGE_PNG
     ];
 
     private $response_type = self::JSON;
@@ -93,6 +96,14 @@ final class Response {
 
     public function isHtml(){
         return $this->response_type === self::HTML;
+    }
+
+    public function isJavaScript(){
+        return $this->response_type === self::JAVASCRIPT;
+    }
+
+    public function isImagePng(){
+        return $this->response_type === self::IMAGE_PNG;
     }
 
     public static function isValidResponseType($response_type){
